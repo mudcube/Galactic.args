@@ -20,8 +20,8 @@
 * .parse(...)
 	* **.parse(object)** *— If parse(...) is called, an object is returned with data consistency based on you schema.*
 
-* .into(...)
-	* **.into(handler)** *— If into(...) is called, a function is returned. This is a wrapper around your function that ensures data consistency, while maintaining the 'handler's `this` scope.*
+* .wrap(...)
+	* **.wrap(handler)** *— If wrap(...) is called, a function is returned. This is a wrapper around your function that ensures data consistency, while maintaining the 'handler's `this` scope.*
 
 ***
 
