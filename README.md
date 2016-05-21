@@ -10,38 +10,18 @@
 #### Galactic.args(...) wraps a Function to ensure input data follows schema:
 
 ```js
-	let method = Galactic.args(schema, handler)
-	let method = Galactic.args(schema, handler, onError)
+	let validator = Galactic.args(schema, onInvalid)
 ```
 
 ***
 
-#### Galactic.args(...) parses Arguments, Arrays or Objects in the same way:
-
-```js
-	let args = Galactic.args(schema, arguments, onError)
-	let args = Galactic.args(schema, array, onError)
-	let args = Galactic.args(schema, object, onError)
-```
-
-***
-
-#### Galactic.args(...) has a chained interface too:
-
-There are 3-methods:
-
-* .catch(...)
-	* **.catch(onError)** *— If catch(...) is called, errors are directed to 'onError'.*
+#### The validator contains two functions:
 
 * .parse(...)
 	* **.parse(object)** *— If parse(...) is called, an object is returned with data consistency based on you schema.*
 
-	* **.parse(object, into)** *—  Additionally, if an 'into' object is passed then all validated values are copied in.*
-
-* .through(...)
-	* **.through(handler)** *— If through(...) is called, a function is returned. This is a wrapper around your function that ensures data consistency, while maintaining the 'handler's `this` scope.*
-
-	* **.through(handler, into)** *— Additionally, if an 'into' object is passed all validated values are copied in, before being passed to the handler as `args`.*
+* .into(...)
+	* **.into(handler)** *— If into(...) is called, a function is returned. This is a wrapper around your function that ensures data consistency, while maintaining the 'handler's `this` scope.*
 
 ***
 
@@ -49,12 +29,12 @@ There are 3-methods:
 
 ```js
 	let yourFunction = Galactic.args({
-		yourInt: 'number(0)', // is a number with a 'defaultValue' of 0
-		yourString: 'string:optional', // is an optional string
+		yourInt: 'number=0', // is a number with a 'defaultValue' of 0
+		yourString: 'string?', // is an optional string
 		yourValue: 'number|boolean' // is a number or a boolean
-	}).through(function (args) { // this is your handler
+	}).into(function (args) { // this is your handler
 		console.log(args) // logs Object { yourInt, yourString, yourValue }
-	}).catch(function (e) {
+	}, function (e) {
 		console.log(e.errors) // logs details on why the values failed validation
 		console.log(e.failed) // logs values that failed validation
 		console.log(e.passed) // logs values that passed validation
@@ -115,7 +95,7 @@ There are 3-methods:
 	let args = Galactic.args({
 		city: 'string',
 		year: 'integer'
-	}, input)
+	}).parse(input)
 ```
 
 *This results in `Object {year: 1972, city: 'Portland'}`*
@@ -125,8 +105,8 @@ There are 3-methods:
 #### And you can reuse the validator:
 
 ```js
-	let validator = Galactic.args(schema).catch(error)
-	let method = validator.through(handler)
+	let validator = Galactic.args(schema, onInvalid)
+	let method = validator.into(handler)
 	let args1 = validator.parse(arguments)
 	let args2 = validator.parse(object)
 	let args3 = validator.parse(array)
@@ -198,8 +178,8 @@ There are 3-methods:
 	let validator = Galactic.args({
 		bat: Number, // required number
 		bear: 'number', // required number
-		beer: 'number:optional', // optional number
-		beard: 'number(42)', // optional number with defautlValue of 42
+		beer: 'number?', // optional number
+		beard: 'number=42', // optional number with defautlValue of 42
 		badger: 'number|boolean' // required number or boolean
 	})
 ```
