@@ -32,7 +32,7 @@
 		yourInt: 'number=0', // is a number with a 'defaultValue' of 0
 		yourString: 'string?', // is an optional string
 		yourValue: 'number|boolean' // is a number or a boolean
-	}).into(function (args) { // this is your handler
+	}).wrap(function (args) { // this is your handler
 		console.log(args) // logs Object { yourInt, yourString, yourValue }
 	}, function (e) {
 		console.log(e.errors) // logs details on why the values failed validation
@@ -106,7 +106,7 @@
 
 ```js
 	let validator = Galactic.args(schema, onInvalid)
-	let method = validator.into(handler)
+	let method = validator.wrap(handler)
 	let args1 = validator.parse(arguments)
 	let args2 = validator.parse(object)
 	let args3 = validator.parse(array)
