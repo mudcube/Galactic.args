@@ -17,11 +17,13 @@
 
 #### The validator contains two functions:
 
-* .parse(...)
-	* **.parse(object)** *— If parse(...) is called, an object is returned with data consistency based on you schema.*
+* .parse(input, onInvalid) - *Returns an object with data consistency based on you schema.*
+	* `input` can be an object, array, or the arguments object.
+	* `onInvalid` is the function that fires if `input` is invalid.
 
-* .wrap(...)
-	* **.wrap(handler)** *— If wrap(...) is called, a function is returned. This is a wrapper around your function that ensures data consistency, while maintaining the 'handler's `this` scope.*
+* .wrap(handler, onInvalid) - *Returns a wrapped version of your handler function that ensures data consistency while maintaining your 'handler's `this` scope.*
+	* `handler` is the function you want wrapped. Successful method calls are directed here.
+	* `onInvalid` is the function that fires if data sent into the wrapper is invalid.
 
 ***
 
