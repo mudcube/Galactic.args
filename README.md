@@ -5,12 +5,13 @@
  *... or "The guide to Nonviolent Communications for Javascript Arguments Handling" ;)*
 
 ### Index
-* What is a schema?
-* Shorthand schema patterns
-* Longhand schema patterns
-* Combining schema patterns
-* Nested validation of Objects
-* Nested validation of Arrays
+* [What is a schema?](#what-is-a-schema)
+* [Schema pattern arguments](#schema-pattern-arguments)
+* [Shorthand schema example](#schema-shorthand-patterns)
+* [Longhand schema example](#schema-longhand-patterns-are-more-flexible)
+* [Combining schema patterns](#multiple-schema-patterns-can-be-used-in-combination)
+* [Nested validation of Objects](#nested-validation-on-objects-looks-like-this)
+* [Nested validation of Arrays](#nested-validation-on-arrays-looks-like-this)
 
 ### Basic Usage
 
@@ -127,7 +128,7 @@
 
 ***
 
-#### Schema
+#### What is a schema?
 
 *A `Galactic.args(...)` schema is simply an object that defines how data should look.*
 
@@ -172,7 +173,9 @@
   
 5. **'catch':** Function ***[optional]***
 
-  *If there is no match or no `defaultValue` then `catch` is called. This function receives an object `({ key, value, type })`. Catch allows you to do two things: (1) Throw a more specific error (2) Prevent an error by returning anything but undefined, essentially functioning as a contextual 'defaultValue''.*
+  *If there is no match or no `defaultValue` then `catch` is called. This function receives an object `({ key, value, type })`. Catch allows you to do 2-things:
+  1. Throw a more specific error 
+  2. Prevent an error by returning anything but undefined, essentially functioning as a contextual 'defaultValue''.*
 
 6. **`transform`:** Function ***[optional]***
 
