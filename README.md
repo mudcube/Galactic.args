@@ -4,10 +4,18 @@
  
  *... or "The guide to Nonviolent Communications for Javascript Arguments Handling" ;)*
 
+### Index
+* What is a schema?
+* Shorthand schema patterns
+* Longhand schema patterns
+* Combining schema patterns
+* Nested validation of Objects
+* Nested validation of Arrays
+
 ### Basic Usage
 
 ***
-#### Galactic.args(...) wraps a Function to ensure input data follows schema:
+#### `Galactic.args(...)` creates a validator based on your schema:
 
 ```js
 	let validator = Galactic.args(schema, onInvalid)
@@ -27,7 +35,7 @@
 
 ***
 
-#### Here's an example of wrapping a function:
+#### Here's a basic example of wrapping a function using shorthand patterns:
 
 ```js
 	let yourFunction = Galactic.args({
@@ -45,7 +53,7 @@
 
 ***
 
-#### Now you can call yourFunction(...) in multiple ways with the same results!
+#### Now you can call `yourFunction(...)` in multiple ways with the same results!
 
 ```js
 	/* can be called with arguments */
@@ -76,7 +84,7 @@
 
 ***
 
-#### Required values can be left out when a 'defaultValue' is present:
+#### Required values can be left out if `defaultValue` is present:
 
 ```
 	yourFunction(true) 
@@ -121,7 +129,7 @@
 
 #### Schema
 
-*A Galactic.args(...) schema is simply an object that defines how data should look.*
+*A `Galactic.args(...)` schema is simply an object that defines how data should look.*
 
 *Here's an example of a basic schema:*
 
@@ -142,33 +150,33 @@
 
 *Schemas are made up of one or more patterns. The following describes the functionality that patterns provide. Also the following is ordered based on how data flows through a pattern.*
 
-1. **'type':** String | constructor ***[optional]***
+1. **`type`:** String | constructor ***[optional]***
 
-  *If 'type' is a string then it's assumed to be a [shortcut](#schema-shorthand-patterns).*
+  *If `type` is a string then it's assumed to be a [shortcut](#schema-shorthand-patterns).*
   
-  *If 'type' is an object constructor then an equality check is performed.*
+  *If `type` is an object constructor then an equality check is performed.*
 	
-	*PRO TIP—See [Galactic.is(...)](https://github.com/mudcube/Galactic.js/blob/master/galactic.is.md) for a more in depth guide to the type checking engine used in Galactic.args(...), along with information on how to create your own custom type validators.*
+	*PRO TIP—See [Galactic.is(...)](https://github.com/mudcube/Galactic.js/blob/master/galactic.is.md) for a more in depth guide to the type checking engine used in `Galactic.args(...)`, along with information on how to create your own custom type validators.*
 
-2. **'validate':** RegExp | Function ***[optional]***
+2. **`validate`:** RegExp | Function ***[optional]***
 
-  *If 'type' is matched, or is not set, then a 'validate' function can be used to more specifically verify the match. This function receives 2-arguments (value, type). It's expected to return true or false.*
+  *If `type` is matched, or is not set, then a `validate` function can be used to more specifically verify the match. This function receives 2-arguments `(value, type)`. It's expected to return true or false.*
 
-3. **'defaultValue':** ***[optional]***
+3. **`defaultValue`:** ***[optional]***
 
-  *If our value has failed 'validate' then the 'defaultValue' is used. This can be any type of variable.*
+  *If our value has failed `validate` then the `defaultValue` is used. This can be any type of variable.*
 
-4. **'optional':** Boolean ***[optional]***
+4. **`optional`:** Boolean ***[optional]***
 
-  *If optional = true then failing the 'type' match and the 'validate' test won't emit an error.*
+  *If optional = true then failing the `type` match and the `validate` test won't emit an error.*
   
 5. **'catch':** Function ***[optional]***
 
-  *If there is no match or no 'defaultValue' then 'catch' is called. This function receives an object ({ key, value, type }). Catch allows you to do two things: (1) Throw a more specific error (2) Prevent an error by returning anything but undefined, essentially functioning as a contextual 'defaultValue''.*
+  *If there is no match or no `defaultValue` then `catch` is called. This function receives an object `({ key, value, type })`. Catch allows you to do two things: (1) Throw a more specific error (2) Prevent an error by returning anything but undefined, essentially functioning as a contextual 'defaultValue''.*
 
-6. **'transform':** Function ***[optional]***
+6. **`transform`:** Function ***[optional]***
 
-  *If a match is found then 'transform' is applied. This function receives 2-arguments (value, type). The return value can be any type of variable. At this point we're all validated and nicely formatted!*
+  *If a match is found then `transform` is applied. This function receives 2-arguments `(value, type)`. The return value can be any type of variable. At this point we're all validated and nicely formatted!*
 
 ***
 
