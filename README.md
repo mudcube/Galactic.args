@@ -26,17 +26,17 @@
 
 #### The validator has 2-methods:
 
-* **.parse(input, onInvalid)** - Returns an `Object` with data consistency based on you schema.
+* `.parse(input, onInvalid)` - Returns an `Object` with data consistency based on you schema.
 	* `input` can be an `Object`, `Array`, or the `arguments` object.
 	* `onInvalid` is the function that fires if `input` is invalid.
 
-* **.wrap(handler, onInvalid)** - Returns a wrapped version of your `Function` that ensures data consistency while maintaining its `this` scope.
+* `.wrap(handler, onInvalid)` - Returns a wrapped version of your `Function` that ensures data consistency while maintaining its `this` scope.
 	* `handler` is the `Function` you want wrapped. Successful calls to your method are directed here.
 	* `onInvalid` is the `Function` that fires if data sent into the wrapper is invalid.
 
 ***
 
-#### Here's a basic example of wrapping a function using shorthand patterns:
+#### Here's a basic example of wrapping a `handler` using shorthand patterns:
 
 ```js
 	let yourFunction = Galactic.args({
@@ -50,6 +50,14 @@
 		console.log(e.failed) // logs values that failed validation
 		console.log(e.passed) // logs values that passed validation
 	})
+```
+
+Or with ES6 object destructuring your `handler` can look like this:
+
+```
+function ({yourInt, yourString, yourValue}) {
+
+}
 ```
 
 ***
@@ -95,7 +103,7 @@
 
 ***
 
-#### Parsing Arguments, Objects or Arrays is handled the same way:
+#### Parsing `Object`, `Array`, and `arguments` is handled the same way:
 
 ```js
 	/* Each of the following has the same result */
