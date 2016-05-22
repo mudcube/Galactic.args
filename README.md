@@ -153,19 +153,19 @@
 
 1. **`type`:** String | constructor ***[optional]***
 
-  *If `type` is a string then it's assumed to be a [shortcut](#schema-shorthand-patterns).*
+  *If `type` is a String then it's assumed to be a [shortcut](#schema-shorthand-patterns).*
   
-  *If `type` is an object constructor then an equality check is performed.*
+  *If `type` is an Object constructor then an equality check is performed.*
 	
-	*PRO TIP—See [Galactic.is(...)](https://github.com/mudcube/Galactic.js/blob/master/galactic.is.md) for a more in depth guide to the type checking engine used in `Galactic.args(...)`, along with information on how to create your own custom type validators.*
+	*PRO TIP—See [Galactic.is(...)](https://github.com/mudcube/Galactic.js/blob/master/galactic.is.md) for a more in depth guide to the type checking engine used in `Galactic.args(...)`, this comes along with information on how to create your own custom type validators.*
 
 2. **`validate`:** RegExp | Function ***[optional]***
 
-  *If `type` is matched, or is not set, then a `validate` function can be used to more specifically verify the match. This function receives 2-arguments `(value, type)`. It's expected to return true or false.*
+  *If `type` is matched, or `type` is not set, then a `validate` function can be used to more specifically verify the match. This `validate` function receives 2-arguments `(value, type)` and is expected to return true or false.*
 
 3. **`defaultValue`:** ***[optional]***
 
-  *If our value has failed `validate` then the `defaultValue` is used. This can be any type of variable.*
+  *If our value has failed the `validate` then the `defaultValue` is used. This can be any type of variable.*
 
 4. **`optional`:** Boolean ***[optional]***
 
@@ -173,27 +173,28 @@
   
 5. **'catch':** Function ***[optional]***
 
-  *If there is no match or no `defaultValue` then `catch` is called. This function receives an object `({ key, value, type })`. Catch allows you to do 2-things:
+  *If there is no match or no `defaultValue` then `catch` is called. This function receives an object `({ key, value, type })`. `catch` allows you to do 2-things:
+  
   1. Throw a more specific error 
-  2. Prevent an error by returning anything but undefined, essentially functioning as a contextual 'defaultValue''.*
+  2. Prevent an error by returning anything but `undefined`, essentially functioning as a contextual 'defaultValue''.*
 
 6. **`transform`:** Function ***[optional]***
 
-  *If a match is found then `transform` is applied. This function receives 2-arguments `(value, type)`. The return value can be any type of variable. At this point we're all validated and nicely formatted!*
+  *If a match is found then `transform` is applied. This function receives 2-arguments `(value, type)`. The return value can be any type of variable.*
+
+At this point we're all validated and nicely formatted!
 
 ***
 
 #### Schema: Shorthand patterns
 
-*Here's a few examples to highlight the features of using shortcuts:*
-
 ```js
 	let validator = Galactic.args({
-		bat: Number, // required number
-		bear: 'number', // required number
-		beer: 'number?', // optional number
-		beard: 'number=42', // optional number with defautlValue of 42
-		badger: 'number|boolean' // required number or boolean
+		bat: Number, // `bat` must be a Number
+		bear: 'number', // `bear` must also be a Number
+		beer: 'number?', // `beer` is an optional Number
+		beard: 'number=42', // `beard` is an optional Number with defaultValue of 42
+		badger: 'number|boolean' // `badger` must be a Number or a Boolean
 	})
 ```
 
@@ -205,9 +206,9 @@
 	let validator = Galactic.args({
 		egg: {
 			type: 'string',
-			optional: true, // optional argument
-			validate: /\s{7,42}/, // RegExp matching a string between 7-42 chars
-			transform: function (value, type) { // formats the results of valid matches to uppercase
+			optional: true, // this is an optional argument
+			validate: /\s{7,42}/, // this is a RegExp matching a string between 7-42 chars
+			transform: function (value, type) { // this formats the results of valid matches to uppercase
 				return value.toUpperCase()
 			}
 		},
@@ -220,16 +221,16 @@
 					return value.byteLength > 42
 				}
 			},
-			catch: function (e) { // throws custom error message
+			catch: function (e) { // this throws custom error message
 				throw `${e.key} expected a Blob or ArrayBuffer but received a ${e.type}`;
 			}
 		},
 		butterfly: {
 			type: 'string',
-			catch: function (e) { // catch error and return contextual defaultValue
+			catch: function (e) { // this catches errors or returns a contextual defaultValue
 				if (e.type === 'string') { // string is not long enough
 					return `${e.value}paddingSoWeAreLongEnough`
-				} else { // is not of type 'string'
+				} else { // argument is not of type String
 					return 'aWholeNewString'
 				}
 			}
