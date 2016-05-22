@@ -26,13 +26,13 @@
 
 #### The validator has 2-methods:
 
-* **.parse(input, onInvalid)** - Returns an object with data consistency based on you schema.
-	* `input` can be an Object, Array, or the arguments object.
+* **.parse(input, onInvalid)** - Returns an `Object` with data consistency based on you schema.
+	* `input` can be an `Object`, `Array`, or the `arguments` object.
 	* `onInvalid` is the function that fires if `input` is invalid.
 
-* **.wrap(handler, onInvalid)** - Returns a wrapped version of your handler function that ensures data consistency while maintaining your 'handler's `this` scope.
-	* `handler` is the function you want wrapped. Successful method calls are directed here.
-	* `onInvalid` is the function that fires if data sent into the wrapper is invalid.
+* **.wrap(handler, onInvalid)** - Returns a wrapped version of your `Function` that ensures data consistency while maintaining its `this` scope.
+	* `handler` is the `Function` you want wrapped. Successful calls to your method are directed here.
+	* `onInvalid` is the `Function` that fires if data sent into the wrapper is invalid.
 
 ***
 
@@ -143,7 +143,7 @@
 }
 ```
 
-*This particular schema states the argument `foo` must be a String, if its not, or its `undefined`, then its value will be "Bunnies!".*
+*This particular schema states the argument `foo` must be a `String`, if its not, or its `undefined`, then its value will be "Bunnies!".*
 
 ***
 
@@ -151,15 +151,15 @@
 
 *Schemas are made up of one or more patterns. The following describes the functionality that patterns provide. Also the following is ordered based on how data flows through a pattern.*
 
-1. **`type`:** String | constructor ***[optional]***
+1. **`type`:** `String` | `constructor` ***[optional]***
 
-  * If `type` is a String then it's assumed to be a [shortcut](#schema-shorthand-patterns).
+  * If `type` is a `String` then it's assumed to be a [shortcut](#schema-shorthand-patterns).
   
-  * If `type` is an Object constructor then an equality check is performed.
+  * If `type` is an `Object` constructor then an equality check is performed.
 	
 	*PRO TIP—See [Galactic.is(...)](https://github.com/mudcube/Galactic.js/blob/master/galactic.is.md) for a more in depth guide to the type checking engine used in `Galactic.args(...)`, this comes along with information on how to create your own custom type validators.*
 
-2. **`validate`:** RegExp | Function ***[optional]***
+2. **`validate`:** `RegExp` | `Function` ***[optional]***
 
   * If `type` is matched, or `type` is not set, then a `validate` function can be used to more specifically verify the match. This `validate` function receives 2-arguments `(value, type)` and is expected to return true or false.
 
@@ -167,18 +167,18 @@
 
   * If our value has failed the `validate` then the `defaultValue` is used. This can be any type of variable.
 
-4. **`optional`:** Boolean ***[optional]***
+4. **`optional`:** `Boolean` ***[optional]***
 
   * If optional = true then failing the `type` match and the `validate` test won't emit an error.
   
-5. **'catch':** Function ***[optional]***
+5. **`catch`:** `Function` ***[optional]***
 
   * If there is no match or no `defaultValue` then `catch` is called recieving the object `({ key, value, type })`. Effectively, `catch` allows you to do 2-things:
   
     1. Throw a more specific error 
-    2. Prevent an error by returning anything but `undefined`, essentially functioning as a contextual 'defaultValue''.
+    2. Prevent an error by returning anything but `undefined`, essentially functioning as a contextual `defaultValue`.
 
-6. **`transform`:** Function ***[optional]***
+6. **`transform`:** `Function` ***[optional]***
 
   * If a match is found then `transform` is applied. This function receives 2-arguments `(value, type)`. The return value can be any type of variable.
 
