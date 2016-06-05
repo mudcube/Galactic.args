@@ -284,7 +284,7 @@ At this point we're all validated and nicely formatted!
 	})
 ```
 
-### Afternote
+### Afterword
 
 In preparation of writing this library there was concern whether arguments would maintain ordering. After researching we've found this is, and will never be an issue. In ES6 object keys are guarenteed to be ordered in this pattern:
 
