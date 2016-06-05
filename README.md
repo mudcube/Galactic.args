@@ -284,6 +284,16 @@ At this point we're all validated and nicely formatted!
 	})
 ```
 
+### Afternote
+
+In preparation of writing this library there was concern whether arguments would maintain ordering. After researching we've found this is, and will never be an issue. In ES6 object keys are guarenteed to be ordered in this pattern:
+
+* **Integer indexes** in ascending order
+* **String indexes** in creation order
+* **Symbol indexes** in creation order
+
+Prior to ES6 all major browsers already handled objects this way!
+
 ### Prior art
 
 ***
