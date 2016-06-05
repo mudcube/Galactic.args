@@ -112,8 +112,8 @@ function ({yourInt, yourString, yourValue}) {
 	let input = { year: 1972, city: 'Portland' } // can accept an object
 
 	let args = Galactic.args({
-		city: 'string',
-		year: 'integer'
+		year: 'integer',
+		city: 'string'
 	}).parse(input)
 ```
 
