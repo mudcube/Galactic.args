@@ -40,9 +40,9 @@
 
 ```js
 	let yourFunction = Galactic.args({
+		yourValue: 'number|boolean', // is a number or a boolean
 		yourInt: 'number=0', // is a number with a 'defaultValue' of 0
-		yourString: 'string?', // is an optional string
-		yourValue: 'number|boolean' // is a number or a boolean
+		yourString: 'string?' // is an optional string
 	}).wrap(function (args) { // this is your handler
 		console.log(args) // logs Object { yourInt, yourString, yourValue }
 	}, function (e) {
@@ -55,7 +55,7 @@
 Or with ES6 object destructuring your `handler` can look like this:
 
 ```
-function ({yourInt, yourString, yourValue}) {
+function ({yourValue, yourInt, yourString}) {
 
 }
 ```
@@ -66,30 +66,30 @@ function ({yourInt, yourString, yourValue}) {
 
 ```js
 	/* can be called with arguments */
-	yourFunction(42, 'Hi!', true)
+	yourFunction(true, 42, 'Hi!')
 	
 	/* can be called using an array */
-	yourFunction([ 42, 'Hi!', true ])
+	yourFunction([ true, 42, 'Hi!' ])
 	
 	/* can be called using an object */
 	yourFunction({
+		yourValue: true,
 		yourInt: 42, 
-		yourString: 'Hi!',
-		yourValue: true
+		yourString: 'Hi!'
 	})
 ```
 
-*Each of these results in `Object { yourInt: 42, yourString: 'Hi!', yourValue: true }`*
+*Each of these results in `Object { yourValue: true, yourInt: 42, yourString: 'Hi!' }`*
 
 ***
 
 #### Optional values can be left out:
 
 ```
-	yourFunction(42, true)
+	yourFunction(true, 42)
 ```
 
-*This results in `Object { yourInt: 42, yourValue: true }`*
+*This results in `Object { yourValue: true, yourInt: 42, yourString: undefined }`*
 
 ***
 
@@ -99,7 +99,7 @@ function ({yourInt, yourString, yourValue}) {
 	yourFunction(true) 
 ```
 
-*This results in `Object { yourInt: 0, yourValue: true }`*
+*This results in `Object { yourValue: true, yourInt: 0, yourString: undefined }`*
 
 ***
 
